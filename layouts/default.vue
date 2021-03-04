@@ -47,6 +47,10 @@
         <nuxt />
       </v-container>
     </v-main>
+     <v-footer :absolute="!fixed" app>
+      @ jikin Api
+     
+    </v-footer>
     <!-- <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
         <v-list-item @click.native="right = !right">
@@ -72,25 +76,22 @@ export default {
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
+          icon: 'mdi-star-shooting',
+          title: 'Manga',
           to: '/',
         },
-        {
+         {
           icon: 'mdi-star-shooting',
-          title: 'Anime',
-          to: '/anime',
+          title: 'Recommend',
+          to: '/recommend',
         },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'User',
-          to: '/user',
-        },
+        
+        
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Anime',
+      title: 'nanamanga',
     }
   },
 }

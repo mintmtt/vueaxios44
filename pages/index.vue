@@ -1,145 +1,51 @@
 <!-- <template>
-  <v-card>
-    <v-toolbar color="#abb0fc" style="height:65px;">
-      <v-text-field
-        class="mx-4"
-        flat
-        hide-details
-        label="Search..."
-        prepend-inner-icon="mdi-magnify"
-        solo-inverted
-      ></v-text-field>
-    </v-toolbar>
-    <v-carousel>
-      <v-carousel-item
-        v-for="(item, i) in items"
-        :key="i"
-        :src="item.src"
-        reverse-transition="fade-transition"
-        transition="fade-transition"
-      ></v-carousel-item>
-    </v-carousel>
-  </v-card>
-</template> -->
+  <div class="card">
+    <v-card>
+      <v-toolbar dark color="#abb0fc">
+       <div class="v-application">
+      <v-text-field v-model="select" label="Search to Manga "></v-text-field>
+      <v-btn class="ma-2" outlined color="black" @click="SearchManga">
+        Search
+         <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn> 
+      </v-btn>
+    </div> -->
 
-<template>
-  <v-card>
-    <v-toolbar dark color="#abb0fc">
-      <!-- <v-toolbar-title>State selection</v-toolbar-title> -->
-      <v-autocomplete
-        v-model="select"
-        :loading="loading"
-        :items="items"
-        :search-input.sync="search"
-        cache-items
-        class="mx-4"
-        flat
-        hide-no-data
-        hide-details
-        label="Search..."
-        prepend-inner-icon="mdi-magnify"
-        solo-inverted
-      >
-      </v-autocomplete>
-
-      <!-- <v-btn icon>
+<!-- <v-btn class="ma-2" rounded color="primary" dark @click="SearchAnime">
+          SEARCH
+          <v-icon right dark> mdi-cloud-upload </v-icon>
+        </v-btn> -->
+<!-- <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn> -->
-    </v-toolbar>
-
-    <v-carousel>
-      <v-carousel-item
-        v-for="(item, i) in items"
-        :key="i"
-        :src="item.src"
-        reverse-transition="fade-transition"
-        transition="fade-transition"
-      ></v-carousel-item>
-    </v-carousel>
-  </v-card>
+<!-- </v-toolbar>
+    </v-card>
+    <div>
+      <v-carousel>
+        <v-carousel-item
+          v-for="(item, i) in items"
+          :key="i"
+          :src="item.src"
+          reverse-transition="fade-transition"
+          transition="fade-transition"
+        ></v-carousel-item>
+      </v-carousel>
+    </div>
+  </div>
 </template>
 
 <script>
-// import Logo from '~/components/Logo.vue'
-// import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
 export default {
   data() {
     return {
-      loading: false,
-      items: [],
-      search: null,
-      select: null,
-      states: [
-        'Alabama',
-        'Alaska',
-        'American Samoa',
-        'Arizona',
-        'Arkansas',
-        'California',
-        'Colorado',
-        'Connecticut',
-        'Delaware',
-        'District of Columbia',
-        'Federated States of Micronesia',
-        'Florida',
-        'Georgia',
-        'Guam',
-        'Hawaii',
-        'Idaho',
-        'Illinois',
-        'Indiana',
-        'Iowa',
-        'Kansas',
-        'Kentucky',
-        'Louisiana',
-        'Maine',
-        'Marshall Islands',
-        'Maryland',
-        'Massachusetts',
-        'Michigan',
-        'Minnesota',
-        'Mississippi',
-        'Missouri',
-        'Montana',
-        'Nebraska',
-        'Nevada',
-        'New Hampshire',
-        'New Jersey',
-        'New Mexico',
-        'New York',
-        'North Carolina',
-        'North Dakota',
-        'Northern Mariana Islands',
-        'Ohio',
-        'Oklahoma',
-        'Oregon',
-        'Palau',
-        'Pennsylvania',
-        'Puerto Rico',
-        'Rhode Island',
-        'South Carolina',
-        'South Dakota',
-        'Tennessee',
-        'Texas',
-        'Utah',
-        'Vermont',
-        'Virgin Island',
-        'Virginia',
-        'Washington',
-        'West Virginia',
-        'Wisconsin',
-        'Wyoming',
-      ],
       items: [
         {
           src:
             'https://64.media.tumblr.com/8afc260a67675b4ec6c3e0328e13cec3/tumblr_phwpnhdwEl1tt6f8lo1_1280.jpg',
         },
-        {
-          src:
-            'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/549e9b77-4c90-4c7f-8d0e-772a4ba70576/d3fqoiw-33a74a57-ef9b-4eea-ba95-4a95227bd10a.jpg/v1/fill/w_1192,h_671,q_70,strp/club_of_aircraft_modeling_by_arsenixc_d3fqoiw-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD03ODgiLCJwYXRoIjoiXC9mXC81NDllOWI3Ny00YzkwLTRjN2YtOGQwZS03NzJhNGJhNzA1NzZcL2QzZnFvaXctMzNhNzRhNTctZWY5Yi00ZWVhLWJhOTUtNGE5NTIyN2JkMTBhLmpwZyIsIndpZHRoIjoiPD0xNDAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.F_B-MCA-P2eE93EDpLD_J8RhxcbQlCNYlnfW9da1UNA',
-        },
+
         {
           src:
             'https://pbs.twimg.com/media/ELS1UAkUUAIoKQ2?format=jpg&name=large',
@@ -153,13 +59,14 @@ export default {
   },
   watch: {
     search(val) {
-      val && val !== this.select && this.querySelections(val)
+      val && val !== this.select && this.selectSelections(val)
     },
   },
   methods: {
-    querySelections(v) {
+    },
+    selectSelections(v) {
       this.loading = true
-      // Simulated ajax query
+      // Simulated ajax select
       setTimeout(() => {
         this.items = this.states.filter((e) => {
           return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
@@ -170,11 +77,109 @@ export default {
     },
   },
 }
+</script> -->
 
-// export default {
-//   components: {
-//     Logo,
-//     VuetifyLogo,
-//   },
-// }
+<template>
+  <div>
+    <div>
+      <v-carousel>
+        <v-carousel-item
+          v-for="(item, i) in items"
+          :key="i"
+          :src="item.src"
+          reverse-transition="fade-transition"
+          transition="fade-transition"
+        ></v-carousel-item>
+      </v-carousel>
+    </div>
+
+    <div class="v-application" style="padding-top: 2rem">
+      <v-toolbar dark color="#abb0fc">
+        <v-toolbar-title>Manga</v-toolbar-title>
+        <v-text-field
+          v-model="select"
+          color="#abb0fc"
+          class="mx-4"
+          flat
+          hide-no-data
+          hide-details
+          label="search"
+          solo-inverted
+        ></v-text-field>
+        <v-btn class="ma-2" rounded color="purple" @click="SearchManga">
+          SEARCH
+          <v-icon right dark> mdi-magnify </v-icon>
+        </v-btn>
+      </v-toolbar>
+    </div>
+    <v-divider class="mt-4 mb-4"></v-divider>
+    <div class="d-flex flex-wrap" style="margin-left: 2rem">
+      <v-card
+        v-for="manga in results"
+        :key="manga.id"
+        class="ma-3"
+        max-width="250"
+        @click="handleMangaClick(manga)"
+      >
+        <v-img :src="manga.image_url" @click="handleMangaClick(manga)"></v-img>
+        <v-card-text
+          ><h5>ID : {{ manga.mal_id }}</h5></v-card-text
+        >
+        <v-card-title>
+          <h4>{{ manga.title }}</h4></v-card-title
+        >
+
+        <!-- <v-card-text v-text="article">
+          <h5>{{ manga.synopsis }}</h5>
+        </v-card-text>   -->
+      </v-card>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from 'axios'
+export default {
+  data() {
+    return {
+      items: [
+        {
+          src:
+            'https://64.media.tumblr.com/8afc260a67675b4ec6c3e0328e13cec3/tumblr_phwpnhdwEl1tt6f8lo1_1280.jpg',
+        },
+
+        {
+          src:
+            'https://pbs.twimg.com/media/ELS1UAkUUAIoKQ2?format=jpg&name=large',
+        },
+        {
+          src:
+            'https://pbs.twimg.com/media/ELS1UAmUcAIECI6?format=jpg&name=large',
+        },
+      ],
+
+      select: '',
+      results: [],
+      ikme: [],
+      show: false,
+    }
+  },
+  methods: {
+    SearchManga() {
+      const url = `https://api.jikan.moe/v3/search/manga?q=${this.select}&page=1/`
+      axios.get(url).then((res) => {
+        console.log(res.data)
+        this.results = res.data.results
+      })
+    },
+    handleMangaClick(manga) {
+      console.log('MANGA', manga)
+      window.location = manga.url
+    },
+  },
+}
 </script>
+
+
+
+
