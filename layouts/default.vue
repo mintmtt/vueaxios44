@@ -80,11 +80,11 @@ export default {
           title: 'Manga',
           to: '/',
         },
-         {
-          icon: 'mdi-star-shooting',
-          title: 'Recommend',
-          to: '/recommend',
-        },
+        //  {
+        //   icon: 'mdi-star-shooting',
+        //   title: 'Recommend',
+        //   to: '/recommend',
+        // },
         
         
       ],

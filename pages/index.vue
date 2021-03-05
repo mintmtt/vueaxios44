@@ -4,7 +4,7 @@
       <v-toolbar dark color="#abb0fc">
        <div class="v-application">
       <v-text-field v-model="select" label="Search to Manga "></v-text-field>
-      <v-btn class="ma-2" outlined color="black" @click="SearchManga">
+      <v-btn class="ma-2" outlined color="black" @click="mg">
         Search
          <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
@@ -106,22 +106,23 @@ export default {
           label="search"
           solo-inverted
         ></v-text-field>
-        <v-btn class="ma-2" rounded color="purple" @click="SearchManga">
+        <v-btn class="ma-2" rounded color="purple" @click="mg">
           SEARCH
           <v-icon right dark> mdi-magnify </v-icon>
         </v-btn>
       </v-toolbar>
     </div>
     <v-divider class="mt-4 mb-4"></v-divider>
-    <div class="d-flex flex-wrap" style="margin-left: 2rem">
+    <div max-width="250px" class="d-flex flex-wrap" style="margin-left: 2rem;">
       <v-card
         v-for="manga in results"
         :key="manga.id"
-        class="ma-3"
-        max-width="250"
-        @click="handleMangaClick(manga)"
+        class="ma-4"
+        max-width="250px"
+        @click="icuClick(manga)"
       >
-        <v-img :src="manga.image_url" @click="handleMangaClick(manga)"></v-img>
+        <v-img :src="manga.image_url" class="ma-3"
+        max-width="250px" @click="icuClick(manga)"></v-img>
         <v-card-text
           ><h5>ID : {{ manga.mal_id }}</h5></v-card-text
         >
@@ -130,10 +131,11 @@ export default {
         >
 
         <!-- <v-card-text v-text="article">
-          <h5>{{ manga.synopsis }}</h5>
+          {{ manga.synopsis }}
         </v-card-text>   -->
       </v-card>
     </div>
+        
   </div>
 </template>
 
@@ -142,6 +144,8 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      titleList: null,
+      url: "https://api.jikan.moe/v3/search/manga?q=${this.select}&page=1",
       items: [
         {
           src:
@@ -165,14 +169,25 @@ export default {
     }
   },
   methods: {
-    SearchManga() {
+    loadTitle() {
+      axios
+        .get(this.url)
+        .then((response) => {
+          this.titleList = response.data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        
+    },
+    mg() {
       const url = `https://api.jikan.moe/v3/search/manga?q=${this.select}&page=1/`
       axios.get(url).then((res) => {
         console.log(res.data)
         this.results = res.data.results
       })
     },
-    handleMangaClick(manga) {
+    icuClick(manga) {
       console.log('MANGA', manga)
       window.location = manga.url
     },
